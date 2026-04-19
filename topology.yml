@@ -1,0 +1,48 @@
+name: srl-l2vpn-mpls
+
+mgmt:
+  network: clab-srl-mpls
+  ipv4-subnet: 172.21.22.0/24
+
+topology:
+  nodes:
+    r1:
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:latest
+      startup-config: configs/r1/config.cli
+
+    r2:
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:latest
+      startup-config: configs/r2/config.cli
+
+    r3:
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:latest
+      startup-config: configs/r3/config.cli
+
+    r4:
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:latest
+      startup-config: configs/r4/config.cli
+
+    host1:
+      kind: linux
+      image: alpine:latest
+      exec:
+        - ip addr add 10.100.0.1/24 dev eth1
+        - ip link set eth1 up
+
+    host2:
+      kind: linux
+      image: alpine:latest
+      exec:
+        - ip addr add 10.100.0.2/24 dev eth1
+        - ip link set eth1 up
+
+  links:
+    - endpoints: ["r1:e1-1", "r2:e1-1"]
+    - endpoints: ["r2:e1-2", "r3:e1-1"]
+    - endpoints: ["r3:e1-2", "r4:e1-1"]
+    - endpoints: ["r1:e1-2", "host1:eth1"]
+    - endpoints: ["r4:e1-2", "host2:eth1"]
