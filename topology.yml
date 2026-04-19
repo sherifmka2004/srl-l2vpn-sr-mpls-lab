@@ -1,7 +1,7 @@
-name: srl-l2vpn-mpls
+name: srl-l2vpn-mpls-ldp
 
 mgmt:
-  network: clab-srl-mpls
+  network: clab-srl-mpls-ldp
   ipv4-subnet: 172.21.22.0/24
 
 topology:

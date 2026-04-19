@@ -150,10 +150,10 @@ bash scripts/deploy.sh
 bash scripts/verify.sh
 
 # Connect to a router
-docker exec -it clab-srl-l2vpn-mpls-r1 sr_cli
+docker exec -it clab-srl-l2vpn-mpls-ldp-r1 sr_cli
 
 # Test L2 extension between hosts
-docker exec clab-srl-l2vpn-mpls-host1 ping -c3 10.100.0.2
+docker exec clab-srl-l2vpn-mpls-ldp-host1 ping -c3 10.100.0.2
 
 # Tear down
 bash scripts/destroy.sh

@@ -2,7 +2,7 @@
 # verify.sh — run a full sanity check on the running lab
 set -euo pipefail
 
-LAB="clab-srl-l2vpn-mpls"
+LAB="clab-srl-l2vpn-mpls-ldp"
 PASS=0; FAIL=0
 
 check() {

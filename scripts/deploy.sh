@@ -3,7 +3,7 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-LAB="clab-srl-l2vpn-mpls"
+LAB="clab-srl-l2vpn-mpls-ldp"
 
 echo "[1/3] Deploying ContainerLab topology..."
 cd "$REPO_DIR"
