@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# deploy.sh — bring up the SR-Linux L2VPN over MPLS (LDP) lab
+# deploy.sh — bring up the SR-Linux L2VPN over SR-MPLS lab
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-LAB="clab-srl-l2vpn-mpls-ldp"
+LAB="clab-srl-l2vpn-sr-mpls"
 
 echo "[1/3] Deploying ContainerLab topology..."
 cd "$REPO_DIR"
 containerlab deploy -t topology.yml --reconfigure
 
-echo "[2/3] Waiting 75s for IS-IS + LDP + BGP EVPN convergence..."
+echo "[2/3] Waiting 75s for IS-IS + SR-MPLS + BGP EVPN convergence..."
 sleep 75
 
 echo ""
