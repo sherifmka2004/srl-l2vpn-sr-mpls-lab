@@ -26,6 +26,11 @@ topology:
       image: ghcr.io/nokia/srlinux:latest
       startup-config: configs/r4/config.cli
 
+    r5:
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:latest
+      startup-config: configs/r5/config.cli
+
     host1:
       kind: linux
       image: alpine:latest
@@ -44,5 +49,7 @@ topology:
     - endpoints: ["r1:e1-1", "r2:e1-1"]
     - endpoints: ["r2:e1-2", "r3:e1-1"]
     - endpoints: ["r3:e1-2", "r4:e1-1"]
+    - endpoints: ["r1:e1-3", "r5:e1-1"]
+    - endpoints: ["r5:e1-2", "r4:e1-3"]
     - endpoints: ["r1:e1-2", "host1:eth1"]
     - endpoints: ["r4:e1-2", "host2:eth1"]
