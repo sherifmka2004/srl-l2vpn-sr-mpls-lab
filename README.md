@@ -131,6 +131,53 @@ The label stack on the wire (host1 → host2 via path R1-R2-R3-R4):
 | Host image | `alpine:latest` |
 | Orchestration | ContainerLab 0.73+ |
 
+## Access
+
+### From the ContainerLab host
+
+```bash
+# SR-Linux CLI
+docker exec -it clab-srl-l2vpn-mpls-ldp-r1 sr_cli
+
+# Bash shell (if needed)
+docker exec -it clab-srl-l2vpn-mpls-ldp-r1 bash
+```
+
+### From a remote Linux machine (SSH)
+
+ContainerLab assigns each node a management IP on `172.21.22.0/24`. Find them with:
+
+```bash
+containerlab inspect -t topology.yml
+```
+
+Then on the **remote machine**, add a route to the management subnet and SSH in:
+
+```bash
+# Add route via the ContainerLab host IP (replace with your actual host IP)
+ip route add 172.21.22.0/24 via <containerlab-host-ip>
+
+# SSH into any router
+ssh admin@<node-mgmt-ip>
+```
+
+SR-Linux default credentials:
+
+| Field    | Value        |
+|----------|--------------|
+| Username | `admin`      |
+| Password | `NokiaSrl1!` |
+| SSH port | `22`         |
+
+> The ContainerLab host must have IP forwarding enabled: `sysctl -w net.ipv4.ip_forward=1`
+
+### gNMI / gRPC (port 57400)
+
+```bash
+gnmic -a <node-mgmt-ip>:57400 -u admin -p NokiaSrl1! --skip-verify get \
+  --path /network-instance[name=default]/protocols/isis
+```
+
 ## Prerequisites
 
 - Linux host with Docker installed
